@@ -105,7 +105,3 @@ Everything is in `index.html`. Search for these to change them:
 - Built for one school year and one student.
 - "Today" comes from your device's clock.
 - Data does not sync between devices. Use Export and Import to move it.
-
-## License
-
-Add the license of your choice (for example MIT) as a `LICENSE` file.
