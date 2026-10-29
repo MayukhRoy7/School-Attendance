@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Attendance 2026–27</title>
+<style>
+:root{--bg:#eef2f7;--card:#fff;--text:#16213a;--muted:#6b778c;--line:#d5dce8;--cell:#f1f4f9;--accent:#2f4fd0;--green:#1f8a4c;--red:#c93c3c;--nsA:#e3e8f0;--nsB:#d3dae6;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1524;--card:#18203a;--text:#e8edf8;--muted:#98a3bd;--line:#2c3757;--cell:#222c4a;--accent:#7b93ff;--green:#2a9d5c;--red:#d65050;--nsA:#1e2744;--nsB:#2a3558;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1524;--card:#18203a;--text:#e8edf8;--muted:#98a3bd;--line:#2c3757;--cell:#222c4a;--accent:#7b93ff;--green:#2a9d5c;--red:#d65050;--nsA:#1e2744;--nsB:#2a3558;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 40px}
+h1{font:700 1.7rem/1.2 Georgia,"Times New Roman",serif;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 16px}
+.steps{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.steps button{flex:1;min-width:140px;padding:10px 12px;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.steps button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.panel p{margin:0 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{padding:9px 14px;border-radius:9px;border:1px solid var(--line);background:var(--cell);color:var(--text);font:inherit;font-weight:600;cursor:pointer}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.p.on{background:var(--green);border-color:var(--green);color:#fff}
+.btn.a.on{background:var(--red);border-color:var(--red);color:#fff}
+.btn:focus-visible,.d:focus-visible,.steps button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.info{color:var(--muted);font-size:.9rem;margin-top:10px}
+.big{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.pct{font:700 3.4rem/1 Georgia,serif}
+.pct.ok{color:var(--green)}.pct.low{color:var(--red)}
+.bar{position:relative;height:12px;background:var(--cell);border-radius:6px;margin:12px 0 4px;overflow:hidden}
+.bar>div{height:100%;background:var(--green)}
+.bar.low>div{background:var(--red)}
+.bar>i{position:absolute;left:80%;top:0;bottom:0;width:2px;background:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:12px}
+.stats div{background:var(--cell);border-radius:10px;padding:10px}
+.stats b{display:block;font-size:1.4rem}
+.stats span{color:var(--muted);font-size:.82rem}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin:0 0 12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:4px;display:inline-block;background:var(--cell)}
+.sw.ns{background:repeating-linear-gradient(45deg,var(--nsA),var(--nsA) 3px,var(--nsB) 3px,var(--nsB) 6px)}
+.sw.un{background:transparent;border:1.5px dashed var(--muted)}
+.sw.sc{background:var(--accent)}.sw.p{background:var(--green)}
+.ov{position:fixed;inset:0;background:rgba(10,15,30,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
+.ov[hidden]{display:none}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;width:100%;max-width:420px;max-height:90vh;overflow:auto}
+.box h2{margin:0 0 8px;font:700 1.15rem Georgia,serif}
+.box p{margin:0 0 10px}
+.box textarea{width:100%;height:120px;margin-top:8px;background:var(--cell);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px;font:12px/1.4 ui-monospace,monospace}
+.box input[type=file]{width:100%;color:var(--text)}.sw.a{background:var(--red)}
+.months{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.mo{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.mo h3{margin:0 0 8px;font-size:1rem;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.mo h3 b{font-size:1.15rem}
+.ms{color:var(--muted);font-size:.78rem;margin:-4px 0 8px}
+.theme{display:flex;gap:2px;background:var(--cell);border:1px solid var(--line);border-radius:10px;padding:3px;width:max-content;margin:0 0 14px}
+.theme button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:.82rem;font-weight:600;padding:5px 12px;border-radius:7px;cursor:pointer}
+.theme button.on{background:var(--accent);color:#fff}
+.theme button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.okc{color:var(--green)}.lowc{color:var(--red)}
+.panel label{display:flex;gap:6px;align-items:center}
+.panel input[type=date]{background:var(--cell);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit}
+.g{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.g i{font-style:normal;text-align:center;font-size:.72rem;color:var(--muted)}
+.g b{display:block}
+.d{aspect-ratio:1;border:1.5px solid transparent;border-radius:8px;background:var(--cell);color:var(--text);font:inherit;font-size:.82rem;padding:0;cursor:pointer}
+.d.ns{background:repeating-linear-gradient(45deg,var(--nsA),var(--nsA) 4px,var(--nsB) 4px,var(--nsB) 8px);color:var(--muted)}
+.d.un{border:1.5px dashed var(--muted);background:transparent}
+.d.p{background:var(--green);color:#fff}
+.d.a{background:var(--red);color:#fff}
+.d.sc{background:var(--accent);color:#fff}
+.d.lock{opacity:.4}
+.d:disabled{cursor:default}
+.d.today{outline:2px solid var(--accent);outline-offset:1px}
+footer{margin-top:20px;color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+</style>
+</head>
+<body>
+<main>
+<h1>Attendance 2026–27</h1>
+<p class="sub">School year April 2026 to March 2027</p>
+<div class="theme" id="theme" role="group" aria-label="Colour theme"><button data-th="auto">Auto</button><button data-th="light">Light</button><button data-th="dark">Dark</button></div>
+<div class="steps" id="steps"></div>
+<div id="top"></div>
+<div class="legend" id="legend"></div>
+<div class="months" id="cal"></div>
+<footer id="foot"><span>Saved in this browser on this device.</span><div class="row"><button class="btn" data-a="export">Export data</button><button class="btn" data-a="import">Import data</button><button class="btn" id="reset" data-a="reset">Reset all data</button></div></footer>
+<div class="ov" id="mo" hidden><div class="box" role="dialog" aria-modal="true" aria-labelledby="mt"><h2 id="mt"></h2><div id="mb"></div><div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" id="mno" data-m="no">Cancel</button><button class="btn pri" id="mok" data-m="ok">OK</button></div></div></div>
+</main>
+<script>
+const pad=n=>String(n).padStart(2,'0');
+const key=t=>t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate());
+const parse=d=>{const [y,m,x]=d.split('-');return new Date(+y,+m-1,+x)};
+const fmt=(d,o)=>parse(d).toLocaleDateString('en-GB',o);
+const now=new Date(), today=key(now);
+const days=[];for(let t=new Date(2026,3,1);t<=new Date(2027,2,31);t.setDate(t.getDate()+1))days.push(key(t));
+const SK='attendance-2026-27';
+let S={stage:1,sd:{},st:{}},armed=false;
+try{const r=localStorage.getItem(SK);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+if(S.ns){if(S.stage>1||Object.keys(S.ns).length)days.forEach(d=>{if(!S.ns[d])S.sd[d]=1});delete S.ns}
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const TK='attendance-theme';
+function setTheme(t){
+ if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);else{t='auto';document.documentElement.removeAttribute('data-theme')}
+ document.querySelectorAll('#theme button').forEach(b=>{const on=b.dataset.th===t;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+ try{localStorage.setItem(TK,t)}catch(e){}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-th]');if(b)setTheme(b.dataset.th)});
+let th='auto';try{th=localStorage.getItem(TK)||'auto'}catch(e){}
+setTheme(th);
+const lab=d=>fmt(d,{weekday:'short',day:'numeric',month:'long'});
+const nm=v=>v==='P'?'present':v==='A'?'absent':'unmarked';
+let pend=null,R={},M=null,mv=false,MR={};
+function newModel(){M={sd:{...S.sd},st:{...S.st},brush:M?M.brush:'P',msg:''}}
+function paint(d,b){if(b==='N'){delete M.sd[d];delete M.st[d]}else{M.sd[d]=1;if(b==='U')delete M.st[d];else M.st[d]=b}}
+function mtap(d){paint(d,M.brush)}
+function mcell(d,i){const c='d'+(!M.sd[d]?' ns':M.st[d]==='A'?' a':M.st[d]==='P'?' p':' un')+(d===today?' today':'');
+ return `<button class="${c}" data-d="${d}" title="${lab(d)}">${i}</button>`}
+function modelAct(a){
+ if(a==='m_fill'){let n=0;days.forEach(d=>{if(d>=today&&M.sd[d]&&!M.st[d]){M.st[d]='P';n++}});M.msg=n+' undecided day'+(n===1?'':'s')+' set to present.'}
+ else if(a==='m_apply'){
+  const f=MR.from,t=MR.to;
+  if(!f||!t||f>t){M.msg='Pick a valid From and To date.';return}
+  let n=0;days.forEach(d=>{if(d>=f&&d<=t&&(M.brush==='N'||M.sd[d])){paint(d,M.brush);n++}});
+  M.msg=n+' day'+(n===1?'':'s')+' updated.'}
+ else if(a==='m_reset')ask('Reset the model?','The model goes back to a copy of your real attendance. Your real data is not touched.','Reset model',()=>{newModel();M.msg='Model reset to your real data.'});
+ else if(a==='m_export')saveModel();
+ else if(a==='m_import')loadModel()}
+async function saveModel(){
+ const data=JSON.stringify({app:'attendance-2026-27-model',version:1,exported:today,sd:M.sd,st:M.st},null,1);
+ try{const dl=window.claude&&await claude.use('downloads');if(dl){await dl.save({filename:'attendance-model-'+today+'.txt',data});return}}catch(e){if(e&&e.code==='declined')return}
+ ask('Export model','Downloads aren’t available here. Copy this text, save it in a .txt file, and use Import model to load it later.','Close',()=>{},'<textarea readonly id="expt"></textarea>');
+ $('expt').value=data;$('expt').select()}
+function loadModel(){
+ ask('Import model','Choose a .txt file you exported from the model, or paste its text. This replaces the model you are working on now. Your real data is not touched.','Import',()=>{
+  try{const o=JSON.parse($('impt').value);
+   if(o.app!=='attendance-2026-27-model'||typeof o.sd!=='object'||typeof o.st!=='object')throw 0;
+   const sd={},st={};
+   days.forEach(d=>{if(o.sd[d]){sd[d]=1;if(o.st[d]==='P'||o.st[d]==='A')st[d]=o.st[d]}});
+   M={sd,st,brush:M.brush,msg:'Model imported.'}}
+  catch(e){$('imperr').textContent='That doesn’t look like an exported model.';return false}
+ },'<input type="file" id="impf" accept=".txt,.json,text/plain,application/json"><textarea id="impt" placeholder="Or paste the exported text here"></textarea><p class="info" id="imperr" style="color:var(--red)"></p>');
+ $('impf').onchange=e=>{const f=e.target.files[0];if(f)f.text().then(t=>{$('impt').value=t})}}
+function renderModel(){
+ const a=agg(()=>true,M),U=a.rest,p=a.N?a.P/a.N*100:0,ok=p>=80,need=Math.ceil(a.N*4/5)-a.P;
+ const tip=!a.N?'No school days in the model yet. Pick a brush and tap some days.':need<=0?'This plan already reaches 80%.':need<=U?`You need at least ${need} of the ${U} undecided days to be present to reach 80%.`:`Even with every undecided day present, this plan ends at ${((a.P+U)/a.N*100).toFixed(1)}%, below 80%.`;
+ const first=days[0],last=days[days.length-1];
+ if(!MR.from)MR.from=MR.to=today>last?last:today<first?first:today;
+ const br=[['P','Present'],['A','Absent'],['U','Not decided'],['N','No school']].map(([k,t])=>`<button class="btn ${M.brush===k?(k==='P'?'p on':k==='A'?'a on':'pri'):''}" data-b="${k}">${t}</button>`).join('');
+ const at=`type="date" min="${first}" max="${last}"`;
+ $('top').innerHTML=`<div class="panel" style="border-style:dashed"><p><b>Future model</b>: a practice area. Nothing here changes your real attendance, and it isn’t saved. Export it as a text file to keep a plan.</p>
+ <p class="info" style="margin-top:0">Pick a brush, then tap days. Painting present, absent or not decided on a non-school day makes it a school day. Not decided days count as not present in the percentage.</p>
+ <div class="row">${br}</div>
+ <div class="row" style="margin-top:10px"><label>From <input ${at} id="bf" value="${MR.from}"></label><label>To <input ${at} id="bt" value="${MR.to}"></label><button class="btn" data-a="m_apply">Apply brush to range</button></div>
+ <p class="info">Range painting changes only existing school days, except the No school brush, which clears every day in the range. ${M.msg||''}</p>
+ <div class="row"><button class="btn" data-a="m_fill">Set undecided days from today to present</button><button class="btn" data-a="m_export">Export model</button><button class="btn" data-a="m_import">Import model</button><button class="btn" data-a="m_reset">Reset model</button></div></div>
+ <div class="panel"><div class="big"><span class="pct ${a.N?(ok?'ok':'low'):''}">${a.N?p.toFixed(1)+'%':'—'}</span><span class="info" style="margin:0">projected attendance for the year</span></div>
+ <div class="bar ${ok?'':'low'}"><div style="width:${p}%"></div><i></i></div>
+ <div class="info" style="margin:0">${tip}</div>
+ <div class="stats"><div><b>${a.N}</b><span>School days</span></div><div><b>${a.P}</b><span>Present</span></div><div><b>${a.A}</b><span>Absent</span></div><div><b>${U}</b><span>Not decided</span></div></div></div>`;
+ $('legend').innerHTML='<span><i class="sw p"></i>Present</span><span><i class="sw a"></i>Absent</span><span><i class="sw un"></i>Not decided</span><span><i class="sw ns"></i>No school</span>';
+ $('cal').innerHTML=cal(true)}
+document.addEventListener('change',e=>{const i=e.target.id;if(i==='bf'||i==='bt')MR[i==='bf'?'from':'to']=e.target.value});
+const agg=(f,X=S)=>{let N=0,P=0,A=0;days.forEach(d=>{if(f(d)&&X.sd[d]){N++;if(X.st[d]==='P')P++;else if(X.st[d]==='A')A++}});return{N,P,A,rest:N-P-A}};
+function mhead(label,pre,X=S){
+ if(X===S&&S.stage<3)return '<h3>'+label+'</h3>';
+ const a=agg(d=>d.slice(0,7)===pre,X);
+ if(!a.N)return '<h3>'+label+'</h3><div class="ms">No school days</div>';
+ const p=a.P/a.N*100;
+ return `<h3><span>${label}</span><b class="${p>=80?'okc':'lowc'}">${p.toFixed(1)}%</b></h3><div class="ms">${a.P} present · ${a.A} absent${a.rest?` · ${a.rest} not marked yet`:''} · ${a.N} school days</div>`}
+function rangeHTML(){
+ const a=R.from,b=R.to;
+ if(!a||!b)return '<p class="info">Pick both dates.</p>';
+ if(a>b)return '<p class="info" style="color:var(--red)">The start date is after the end date.</p>';
+ const r=agg(d=>d>=a&&d<=b);
+ if(!r.N)return '<p class="info">No school days in this range.</p>';
+ const p=r.P/r.N*100,o={day:'numeric',month:'short',year:'numeric'};
+ return `<div class="big" style="margin-top:10px"><span class="pct ${p>=80?'ok':'low'}" style="font-size:2.4rem">${p.toFixed(1)}%</span><span class="info" style="margin:0">${fmt(a,o)} to ${fmt(b,o)}, both included</span></div><div class="stats"><div><b>${r.N}</b><span>School days</span></div><div><b>${r.P}</b><span>Present</span></div><div><b>${r.A}</b><span>Absent</span></div><div><b>${r.rest}</b><span>Not marked yet</span></div></div>`}
+function rangePanel(){
+ const first=days[0],last=days[days.length-1];
+ if(!R.from){R.from=first;R.to=today>last?last:today<first?first:today}
+ const at=`type="date" min="${first}" max="${last}"`;
+ return `<div class="panel"><p><b>Custom date range</b></p><div class="row"><label>From <input ${at} id="rf" value="${R.from}"></label><label>To <input ${at} id="rt" value="${R.to}"></label></div><div id="rng">${rangeHTML()}</div></div>`}
+document.addEventListener('change',e=>{const i=e.target.id;if(i==='rf'||i==='rt'){R[i==='rf'?'from':'to']=e.target.value;$('rng').innerHTML=rangeHTML()}});
+function ask(t,x,ok,fn,html){pend=fn;$('mt').textContent=t;$('mb').innerHTML='<p>'+x+'</p>'+(html||'');$('mok').textContent=ok;$('mo').hidden=false;$('mno').focus()}
+function closeModal(ok){if(ok&&pend&&pend()===false)return;pend=null;$('mo').hidden=true}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('mo').hidden)closeModal(false)});
+function change(d,v){const c=S.st[d];const go=()=>{if(v)S.st[d]=v;else delete S.st[d]};
+ if(c&&c!==v)ask('Change '+lab(d)+'?','This day is marked '+nm(c)+'. Change it to '+nm(v)+'?','Change',go);else go()}
+async function doExport(){
+ const data=JSON.stringify({app:'attendance-2026-27',version:1,exported:today,stage:S.stage,sd:S.sd,st:S.st},null,1);
+ try{const dl=window.claude&&await claude.use('downloads');if(dl){await dl.save({filename:'attendance-2026-27-backup-'+today+'.json',data});return}}catch(e){if(e&&e.code==='declined')return}
+ ask('Export data','Downloads aren’t available here. Copy this text and keep it somewhere safe. Paste it into Import to restore it.','Close',()=>{},'<textarea readonly id="expt"></textarea>');
+ $('expt').value=data;$('expt').select()}
+function doImport(){
+ ask('Import data','Choose a file exported from this portal, or paste its text. This replaces everything currently saved.','Import',()=>{
+  try{const o=JSON.parse($('impt').value);
+   if(o.app!=='attendance-2026-27'||typeof o.sd!=='object'||typeof o.st!=='object')throw 0;
+   const sd={},st={};
+   days.forEach(d=>{if(o.sd[d]){sd[d]=1;if(o.st[d]==='P'||o.st[d]==='A')st[d]=o.st[d]}});
+   S={stage:[1,2,3].includes(o.stage)?o.stage:3,sd,st}}
+  catch(e){$('imperr').textContent='That doesn’t look like an export from this portal.';return false}
+ },'<input type="file" id="impf" accept=".json,application/json"><textarea id="impt" placeholder="Or paste the exported text here"></textarea><p class="info" id="imperr" style="color:var(--red)"></p>');
+ $('impf').onchange=e=>{const f=e.target.files[0];if(f)f.text().then(t=>{$('impt').value=t})}}
+
+function stats(){let sc=0,P=0,A=0,un=0,fut=0,ns=0;
+ days.forEach(d=>{if(!S.sd[d]){ns++;return}sc++;if(d>today){fut++;return}
+  if(S.st[d]==='P')P++;else if(S.st[d]==='A')A++;else if(d<today)un++});
+ return{sc,P,A,un,fut,ns}}
+
+function tap(d){
+ if(S.stage===1){if(!S.sd[d])S.sd[d]=1;else if(S.st[d])ask('Remove '+lab(d)+' as a school day?','It is marked '+nm(S.st[d])+'. That mark will be erased.','Remove',()=>{delete S.sd[d];delete S.st[d]});else delete S.sd[d]}
+ else if(S.stage===2){if(!S.sd[d]||d>=today)return;change(d,S.st[d]==='A'?null:'A')}
+ else{if(!S.sd[d]||d>today)return;change(d,S.st[d]==='A'?'P':S.st[d]==='P'?'A':'P')}}
+
+function weekdayToggle(dows){
+ const list=days.filter(d=>dows.includes(parse(d).getDay()));
+ const all=list.every(d=>S.sd[d]);
+ list.forEach(d=>{if(all){delete S.sd[d];delete S.st[d]}else S.sd[d]=1})}
+
+function act(a){
+ if(a==='wk5')weekdayToggle([1,2,3,4,5]);
+ else if(a==='wk6')weekdayToggle([1,2,3,4,5,6]);
+ else if(a==='clear')S.sd={};
+ else if(a==='export')doExport();
+ else if(a==='import')doImport();
+ else if(a.startsWith('m_'))modelAct(a);
+ else if(a==='next1')S.stage=2;
+ else if(a==='finish'){days.forEach(d=>{if(d<today&&S.sd[d]&&!S.st[d])S.st[d]='P'});S.stage=3}
+ else if(a==='reset')ask('Erase all data?','All school days and attendance marks will be deleted. Export first if you want a backup.','Erase everything',()=>{S={stage:1,sd:{},st:{}}})}
+
+function cell(d,i){
+ let c='d',dis='';
+ if(S.stage===1){if(S.sd[d])c+=' sc'}
+ else if(!S.sd[d]){c+=' ns';dis='disabled'}
+ else{
+  const lock=S.stage===2?d>=today:d>today;
+  if(lock){c+=' lock';dis='disabled'}
+  else c+=S.st[d]==='A'?' a':S.st[d]==='P'?' p':' un'}
+ if(d===today)c+=' today';
+ return `<button class="${c}" data-d="${d}" ${dis} title="${fmt(d,{weekday:'long',day:'numeric',month:'long'})}">${i}</button>`}
+
+function cal(mod){let h='';
+ for(let m=0;m<12;m++){
+  const y=m<9?2026:2027,mo=(3+m)%12,f=new Date(y,mo,1),n=new Date(y,mo+1,0).getDate(),off=(f.getDay()+6)%7;
+  h+=`<section class="mo">${mhead(f.toLocaleDateString('en-GB',{month:'long',year:'numeric'}),y+'-'+pad(mo+1),mod?M:S)}<div class="g">`+'MTWTFSS'.split('').map(c=>`<i>${c}</i>`).join('')+'<b></b>'.repeat(off);
+  for(let i=1;i<=n;i++)h+=(mod?mcell:cell)(y+'-'+pad(mo+1)+'-'+pad(i),i);
+  h+='</div></section>'}
+ return h}
+
+function todayCard(){
+ const lab=fmt(today,{weekday:'long',day:'numeric',month:'long'});
+ if(today<days[0]||today>days[days.length-1])return `<div class="panel"><p>Today is outside the 2026–27 school year.</p></div>`;
+ if(!S.sd[today])return `<div class="panel"><p><b>${lab}</b></p><p>No school today. Nothing to mark.</p></div>`;
+ const v=S.st[today];
+ return `<div class="panel"><p><b>${lab}</b>: were you at school today?</p>
+ <div class="row"><button class="btn p ${v==='P'?'on':''}" data-t="P">Present</button><button class="btn a ${v==='A'?'on':''}" data-t="A">Absent</button></div>
+ <p class="info">${v?'Marked '+(v==='P'?'present':'absent')+'. Tap the other button to change it.':'Not marked yet. Come back each school day and add it here.'}</p></div>`}
+
+function render(){
+ $('steps').innerHTML=['1. School days','2. Mark absences','3. Summary','4. Future model'].map((t,i)=>`<button class="${(mv?i===3:S.stage===i+1)?'on':''}" data-s="${i+1}">${t}</button>`).join('');
+ $('foot').style.display=mv?'none':'';
+ if(mv)return renderModel();
+ const s=stats();let h='',lg='';
+ if(S.stage===1){
+  h=`<div class="panel"><p>Tap each day you have <b>school</b>. To save time, fill in every Mon–Fri or Mon–Sat, then tap holidays and vacation days to remove them. You can plan ahead for future months too.</p>
+  <div class="row"><button class="btn" data-a="wk5">All Mon–Fri</button><button class="btn" data-a="wk6">All Mon–Sat</button><button class="btn" data-a="clear">Clear all</button><button class="btn pri" data-a="next1">Done, mark absences</button></div>
+  <p class="info">${s.sc} school days selected</p></div>`;
+  lg='<span><i class="sw sc"></i>School day</span><span><i class="sw"></i>Not a school day</span>'}
+ else if(S.stage===2){
+  const past=s.P+s.A+s.un;
+  h=`<div class="panel"><p>Dashed days are school days up to yesterday (${fmt(days.filter(d=>d<today).pop()||today,{day:'numeric',month:'long'})}) that aren’t marked yet. Tap the days you were <b>absent</b>. Days you leave alone will be counted present.</p>
+  <div class="row"><button class="btn pri" data-a="finish">Finish, count the rest as present</button></div>
+  <p class="info">${s.A} absent so far · ${past-s.A} school days will count as present</p></div>`;
+  lg='<span><i class="sw un"></i>Unmarked</span><span><i class="sw a"></i>Absent</span><span><i class="sw p"></i>Present</span><span><i class="sw ns"></i>No school</span>'}
+ else{
+  const tot=s.P+s.A,pc=tot?s.P/tot*100:0,ok=pc>=80,left=Math.floor(s.sc/5)-s.A;
+  h=todayCard()+`<div class="panel"><div class="big"><span class="pct ${tot?(ok?'ok':'low'):''}">${tot?pc.toFixed(1)+'%':'—'}</span><span class="info" style="margin:0">attendance so far</span></div>
+  <div class="bar ${ok?'':'low'}"><div style="width:${pc}%"></div><i title="80%"></i></div>
+  <div class="info" style="margin:0">Line marks 80%. ${left>=0?`You can miss up to ${left} more school day${left===1?'':'s'} this year and still reach 80%.`:'You’re past the 20% absence limit for the full year.'}</div>
+  <div class="stats"><div><b>${s.P}</b><span>Present days</span></div><div><b>${s.A}</b><span>Absent days</span></div><div><b>${s.un}</b><span>Unmarked past days</span></div><div><b>${s.fut}</b><span>School days to come</span></div></div>
+  <p class="info">Tap any past school day below to flip it between present and absent. You’ll be asked to confirm each change.</p></div>${rangePanel()}`;
+  lg='<span><i class="sw p"></i>Present</span><span><i class="sw a"></i>Absent</span><span><i class="sw un"></i>Unmarked</span><span><i class="sw ns"></i>No school</span>'}
+ $('top').innerHTML=h;$('legend').innerHTML=lg;$('cal').innerHTML=cal();
+ $('reset').textContent=armed?'Tap again to erase everything':'Reset all data'}
+
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.a!=='reset')armed=false;
+ if(b.dataset.m)closeModal(b.dataset.m==='ok');
+ else if(b.dataset.s){const n=+b.dataset.s;if(n===4){mv=true;if(!M)newModel()}else{mv=false;S.stage=n}}
+ else if(b.dataset.d)mv?mtap(b.dataset.d):tap(b.dataset.d);
+ else if(b.dataset.t)change(today,b.dataset.t);
+ else if(b.dataset.b)M.brush=b.dataset.b;
+ else if(b.dataset.a)act(b.dataset.a);
+ save();render()});
+render();
+</script>
+</body>
+</html>
