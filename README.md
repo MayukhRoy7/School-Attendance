@@ -1,4 +1,3 @@
-# School-Attendance
 # School Attendance Tracker 2026–27
 
 A single-page attendance tracker for one school year (April 2026 to March 2027). Pick your school days, mark the days you were absent, and see your attendance percentage by year, by month, or for any custom date range. A separate "Future model" tab lets you plan what-if scenarios without touching your real data.
